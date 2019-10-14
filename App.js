@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
-import { AppLoading, Asset } from "expo";
+import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
 
 import Navigation from "./navigation";
 import { Block } from "./components";
