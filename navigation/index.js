@@ -9,6 +9,8 @@ import Browse from "./screens/Browse";
 import Explore from "./screens/Explore";
 import Product from "./screens/Product";
 import Settings from "./screens/Settings";
+import Signup from "./screens/Signup";
+import Forgot from "./screens/Forgot";
 
 import { theme } from "./constants";
 
@@ -16,6 +18,8 @@ const screens = createStackNavigator(
   {
     Welcome,
     Login,
+    Signup,
+    Forgot,
     Browse,
     Explore,
     Product,
