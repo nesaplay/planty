@@ -5,10 +5,10 @@ import { Image } from "react-native";
 
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
-import Browse from "../screens/Browse";
-import Explore from "../screens/Explore";
-import Product from "../screens/Product";
-import Settings from "../screens/Settings";
+// import Browse from "../screens/Browse";
+// import Explore from "../screens/Explore";
+// import Product from "../screens/Product";
+// import Settings from "../screens/Settings";
 import Signup from "../screens/Signup";
 import Forgot from "../screens/Forgot";
 
@@ -20,18 +20,31 @@ const screens = createStackNavigator(
     Login,
     Signup,
     Forgot,
-    Browse,
-    Explore,
-    Product,
-    Settings,
+    // Browse,
+    // Explore,
+    // Product,
+    // Settings,
   },
-  {
+  { 
+    initialRouteName: "Login",
     defaultNavigationOptions: {
-      headerStyle: {},
-      headerBackImage: <Image />,
+      headerStyle: {
+        height: theme.sizes.base * 4,
+        backgroundColor: theme.colors.white,
+        borderBottomColor: "transparent",
+        elevation: 0, // for android
+      },
+      headerBackImage: <Image source={require("../assets/icons/back.png")} />,
       headerBackTitle: null,
-      headerLeftContainerStyle: {},
-      headerRightContainerStyle: {},
+      headerLeftContainerStyle: {
+        alignItems: 'center',
+        marginLeft: theme.sizes.base * 2,
+        paddingRight: theme.sizes.base,
+      },
+      headerRightContainerStyle: {
+        alignItems: 'center',
+        paddingRight: theme.sizes.base,
+      },
     },
   }
 );

@@ -84,7 +84,7 @@ class Welcome extends Component {
     const { navigation } = this.props;
     return (
       <Block>
-        <Block center middle flex={0.5}>
+        <Block center bottom flex={0.4}>
           <Text h1 center bold>
             Your Home.
             <Text h1 primary>
@@ -101,7 +101,7 @@ class Welcome extends Component {
         </Block>
         <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
           <Button gradient onPress={() => this.handleLogin()}>
-            <Text center semibold>
+            <Text center semibold white>
               Login
             </Text>
           </Button>
