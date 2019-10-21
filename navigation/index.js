@@ -5,10 +5,10 @@ import { Image } from "react-native";
 
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
-// import Browse from "../screens/Browse";
-// import Explore from "../screens/Explore";
-// import Product from "../screens/Product";
-// import Settings from "../screens/Settings";
+import Browse from "../screens/Browse";
+import Explore from "../screens/Explore";
+import Product from "../screens/Product";
+import Settings from "../screens/Settings";
 import Signup from "../screens/Signup";
 import Forgot from "../screens/Forgot";
 
@@ -20,13 +20,13 @@ const screens = createStackNavigator(
     Login,
     Signup,
     Forgot,
-    // Browse,
-    // Explore,
-    // Product,
-    // Settings,
+    Browse,
+    Explore,
+    Product,
+    Settings,
   },
   { 
-    initialRouteName: "Login",
+    initialRouteName: "Settings",
     defaultNavigationOptions: {
       headerStyle: {
         height: theme.sizes.base * 4,
