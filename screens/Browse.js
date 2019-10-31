@@ -8,6 +8,16 @@ import { ScrollView } from "react-native-gesture-handler";
 class Browse extends Component {
   state = {
     active: "Products",
+    categories: [],
+  };
+
+
+
+  handleTab = tab => {
+    const { categories } = this.props;
+    const filtered = categories.filter(category => category.tags.includes(tab.toLowerCase()));
+
+    this.setState({ active: tab, categories: filtered });
   };
 
   renderTab = tab => {
@@ -17,7 +27,7 @@ class Browse extends Component {
     return (
       <TouchableOpacity
         key={`tab-${tab}`}
-        onPress={() => this.setState({ active: tab })}
+        onPress={() => this.handleTab(tab)}
         style={[styles.tab, isActive ? styles.active : null]}
       >
         <Text size={16} medium gray={!isActive} secondary={isActive}>
@@ -26,8 +36,13 @@ class Browse extends Component {
       </TouchableOpacity>
     );
   };
+
+  componentDidMount() {
+    this.setState({ categories: this.props.categories });
+  }
   render() {
-    const { profile, navigation, categories } = this.props;
+    const { profile, navigation } = this.props;
+    const { categories } = this.state;
     const tabs = ["Products", "Inspirations", "Shop"];
 
     return (
@@ -54,7 +69,9 @@ class Browse extends Component {
                     <Badge margin={[0, 0, 15]} size={50} color="rgba(41, 216, 143, 0.20)">
                       <Image source={category.image} />
                     </Badge>
-                    <Text medium height={20}>{category.name}</Text>
+                    <Text medium height={20}>
+                      {category.name}
+                    </Text>
                     <Text gray caption>
                       {category.count}
                     </Text>
@@ -101,7 +118,7 @@ const styles = StyleSheet.create({
   categories: {
     flexWrap: "wrap",
     paddingHorizontal: theme.sizes.base * 2,
-    marginBottom: theme.sizes.base * 3.5
+    marginBottom: theme.sizes.base * 3.5,
   },
   category: {
     width: 165,
