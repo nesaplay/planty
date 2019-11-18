@@ -47,13 +47,16 @@ const products = [
   {
     id: 1,
     name: "16 Best Plants that Thrive In Your Bedroom",
-    description: "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
+    description: "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum LoremIpsumLorem Ipsum Lorem IpsumLorem Ipsum LoremIpsum",
     tags: ["Interior", "27m", "Ideas"],
     gallery: [
       require("../assets/images/plants_1.png"),
       require("../assets/images/plants_2.png"),
       require("../assets/images/plants_3.png"),
-      // showing only 3 images, show +3 for the rest
+      // showing only 3 images, show +6 for the rest
+      require("../assets/images/plants_1.png"),
+      require("../assets/images/plants_2.png"),
+      require("../assets/images/plants_3.png"),
       require("../assets/images/plants_1.png"),
       require("../assets/images/plants_2.png"),
       require("../assets/images/plants_3.png"),
