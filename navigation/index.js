@@ -26,7 +26,6 @@ const screens = createStackNavigator(
     Settings,
   },
   { 
-    initialRouteName: "Explore",
     defaultNavigationOptions: {
       headerStyle: {
         height: theme.sizes.base * 4,
