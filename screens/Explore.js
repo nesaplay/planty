@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, Dimensions, TouchableOpacity, Animated } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { LinearGradient } from "expo-linear-gradient";
 import { Button, Block, Text, Input } from "../components";
 import { theme, mocks } from "../constants";
 
@@ -11,17 +11,28 @@ const { width, height } = Dimensions.get("window");
 class Explore extends Component {
   state = {
     searchString: "",
+    searchFocus: new Animated.Value(0.6),
   };
+  handleSearchFocus(status) {
+    Animated.timing(
+      this.state.searchFocus,
+      {
+        toValue: status ? 0.8 : 0.6,
+        duration: 150,
+        
+      }
+    ).start();
+  }
   renderImage = (img, index) => {
     const { navigation } = this.props;
     const sizes = Image.resolveAssetSource(img);
-    const fullWidth = width - (theme.sizes.base * 2);
+    const fullWidth = width - (theme.sizes.padding * 2.5);
     const resize = (sizes.width * 100) / fullWidth;
-    const imgWidth = resize > 72 ? fullWidth : sizes.width * 1.1;
+    const imgWidth = resize > 75 ? fullWidth : sizes.width * 1.1;
 
     return (
       <TouchableOpacity
-        key={index}
+        key={`img-${index}`}
         onPress={() => navigation.navigate("Product")}
       >
         <Image 
@@ -36,7 +47,7 @@ class Explore extends Component {
     const mainImage = images[0];
 
     return (
-      <Block style={styles.explore}>
+      <Block style={{ marginBottom: height / 3 }}>
         <TouchableOpacity
           style={[styles.image, styles.mainImage]}
           onPress={() => navigation.navigate("Product")}
@@ -44,31 +55,43 @@ class Explore extends Component {
           <Image source={mainImage} style={[styles.image, styles.mainImage]} />
         </TouchableOpacity>
         <Block row space="between" wrap>
-          {images.map(this.renderImage)}
+          {images.slice(1).map(this.renderImage)}
         </Block>
       </Block>
     );
   };
   renderFooter = () => {
     return (
-      <Block style={styles.footer}>
-        <Text>renderFooter</Text>
-      </Block>
+      <LinearGradient 
+        locations={[0.5, 1]}
+        style={styles.footer}
+        colors={["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.6)"]}
+      >
+        <Button gradient style={{ width: width / 2.678 }}>
+          <Text bold white center>Filters</Text>
+        </Button>
+      </LinearGradient>
     );
   };
   renderSearch = () => {
+    const { searchString, searchFocus } = this.state;
+    const isEditing = searchFocus && searchString;
+
     return (
-      <Block middle flex={0.6} style={styles.search}>
+      <Block animated middle flex={searchFocus} style={styles.search}>
         <Input
           placeholder="Search"
           placeholderTextColor={theme.colors.gray2}
           style={styles.searchInput}
           onChangeText={text => this.setState({ searchString: text })}
-          value={this.state.searchString}
+          onFocus={() => this.handleSearchFocus(true)}
+          onBlur={() => this.handleSearchFocus(false)}
+          onRightPress={() => isEditing ? this.setState({ searchString: null }) : null}
+          value={searchString}
           rightStyle={styles.searchRight}
           rightLabel={
             <FontAwesome
-              name="search"
+              name={isEditing ? "close" : "search"}
               size={theme.sizes.base / 1.6}
               color={theme.colors.gray2}
               style={styles.searchIcon}
@@ -107,6 +130,7 @@ export default Explore;
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: theme.sizes.base * 2,
+    paddingBottom: theme.sizes.base * 2,
   },
   search: {
     height: theme.sizes.base * 2,
@@ -133,17 +157,16 @@ const styles = StyleSheet.create({
   image: {
     minHeight: 100,
     maxHeight: 130,
-    maxWidth: width - (theme.sizes.base * 2),
+    maxWidth: width - (theme.sizes.padding * 2.5),
     marginBottom: theme.sizes.padding,
     borderRadius: 4,
   },
   mainImage: {
-    minWidth: width - (theme.sizes.base * 2),
-    maxWidth: width - (theme.sizes.base * 2),
+    minWidth: width - (theme.sizes.padding * 2.5),
+    minHeight: width - (theme.sizes.padding * 2.5),
   },
   explore: {
-    marginBottom: height / 2.5,
-    marginHorizontal: theme.sizes.base * 2,
+    marginHorizontal: theme.sizes.padding * 1.25,
   },
   footer: {
     position: "absolute",
